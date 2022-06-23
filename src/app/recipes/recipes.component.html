@@ -1,8 +1,22 @@
 <div class="row">
   <div class="col-md-5">
-    <app-recipe-list></app-recipe-list>
+    <!-- FIRST Iteration  -->
+    <!-- <app-recipe-list (activeRecipe)="activeRecipe = $event"></app-recipe-list> -->
+    <!-- SECOND iteration -->
+    <!-- <app-recipe-list (activeRecipe)="setActive($event)"></app-recipe-list> -->
+    <!-- THIRD (NEW) iteration -->
+    <app-recipe-list
+      (declaredActiveRecipe)="setActive($event)"
+    ></app-recipe-list>
   </div>
-  <div class="col-md-7">
-    <app-recipe-detail></app-recipe-detail>
+  <div class="col-md-7 list-container">
+    <app-recipe-detail
+      [activeRecipe]="activeRecipe"
+      *ngIf="activeRecipe; else infoText"
+    ></app-recipe-detail>
+    <ng-template #infoText>
+      <p>Please Select a Recipe!</p>
+    </ng-template>
   </div>
 </div>
+<pre>{{ activeRecipe | json }}</pre>
