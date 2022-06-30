@@ -1,4 +1,4 @@
-<a
+<!-- <a
   style="cursor: pointer"
   [routerLink]="[index]"
   class="list-group-item clearfix"
@@ -16,4 +16,33 @@
       style="max-height: 50px"
     />
   </span>
-</a>
+</a> -->
+<div class="col-xs-12" id="eachRecipeContainer">
+  <a
+    style="cursor: pointer"
+    [routerLink]="[index]"
+    class="list-group-item clearfix col-xs-10"
+    routerLinkActive="active"
+    id="container"
+  >
+    <div class="pull-left" id="title-desc">
+      <h4 class="list-group-item-heading">{{ recipe.name }}</h4>
+      <p class="list-group-item-text">{{ recipe.description }}</p>
+    </div>
+    <span class="pull-right">
+      <img
+        [src]="recipe.imagePath"
+        alt="{{ recipe.name }}"
+        class="img-responsive"
+        style="max-height: 50px"
+      />
+    </span>
+  </a>
+  <button
+    class="col-xs-2 btn btn-danger"
+    id="recipe-X"
+    (click)="recipeService.deleteRecipe(recipe.key)"
+  >
+    Delete
+  </button>
+</div>

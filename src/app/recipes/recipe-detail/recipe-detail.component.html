@@ -1,6 +1,6 @@
 <div
   class="detail-container detail-list-container"
-  *ngIf="recipeService.recipes[id] as selectedRecipe"
+  *ngIf="recipeService.recipes && recipeService.recipes[id] as selectedRecipe"
 >
   <div class="row">
     <div class="col-xs-12">

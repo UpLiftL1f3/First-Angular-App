@@ -4,6 +4,8 @@ import { ShoppingListService } from '../shopping-list/shopping-list.service';
 import { Recipe } from './recipe.model';
 // import { HttpClient } from '@angular/common/http';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { AngularFireList } from '@angular/fire/compat/database';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class RecipeService implements OnInit {
@@ -11,6 +13,7 @@ export class RecipeService implements OnInit {
   public recipeSelected = new EventEmitter<Recipe>();
 
   recipes: Recipe[];
+  itemsRef: AngularFireList<any>;
   private _recipes: Recipe[] = [
     new Recipe(
       'Tasty n',
@@ -35,12 +38,18 @@ export class RecipeService implements OnInit {
     public db: AngularFireDatabase // private httpClient: HttpClient
   ) {
     this.getData();
+    this.itemsRef = db.list('recipes');
   }
 
   getData() {
     this.db
       .list('recipes')
-      .valueChanges()
+      .snapshotChanges()
+      .pipe(
+        map((changes) =>
+          changes.map((c: any) => ({ key: c.payload.key, ...c.payload.val() }))
+        )
+      )
       .subscribe((data: any) => {
         console.log('====> data', data);
         this.recipes = data;
@@ -68,5 +77,10 @@ export class RecipeService implements OnInit {
 
   addIngredientsToShoppingList(ingredients: Ingredient[]) {
     this.slService.addIngredients(ingredients);
+  }
+
+  deleteRecipe(key: string) {
+    this.itemsRef.remove(key);
+    console.log('click', key);
   }
 }

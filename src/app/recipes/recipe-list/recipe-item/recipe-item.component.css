@@ -1,0 +1,11 @@
+#eachRecipeContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2%;
+}
+
+#recipe-X {
+  height: 100%;
+  width: 15%;
+  margin-left: 3%;
+}
