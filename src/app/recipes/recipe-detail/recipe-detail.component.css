@@ -5,9 +5,13 @@
   margin-bottom: 10%;
 }
 
-.activeRecipeImage {
+.selectedRecipeImage {
   max-height: 200px;
   border-radius: 80%;
+}
+
+.recipeIngredient {
+  text-align: start;
 }
 
 @media screen and (max-width: 990px) {

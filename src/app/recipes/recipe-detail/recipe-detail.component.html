@@ -1,36 +1,58 @@
-<div class="detail-container detail-list-container">
+<div
+  class="detail-container detail-list-container"
+  *ngIf="recipeService.recipes[id] as selectedRecipe"
+>
   <div class="row">
     <div class="col-xs-12">
       <img
-        [src]="activeRecipe.imagePath"
+        [src]="selectedRecipe.imagePath"
         alt=""
-        class="img-responsive activeRecipeImage"
+        class="img-responsive selectedRecipeImage"
       />
     </div>
   </div>
   <div class="row">
     <div class="col-xs-12">
-      <h1 style="text-align: center">{{ activeRecipe.name }}</h1>
+      <h1 style="text-align: center">{{ selectedRecipe.name }}</h1>
     </div>
   </div>
   <div class="row">
     <div class="col-xs-12">
-      <div class="btn-group" style="display: flex; justify-content: center">
+      <div
+        class="btn-group"
+        appDropdown
+        style="display: flex; justify-content: center"
+      >
         <button class="btn btn-primary dropdown-toggle">
           Manage Recipe<span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
-          <li><a href="#">Add to Shopping List</a></li>
-          <li><a href="#">Edit Recipe</a></li>
-          <li><a href="#">Delete Recipe</a></li>
+          <li>
+            <a (click)="onAddToShoppingList()" style="cursor: pointer"
+              >Add to Shopping List</a
+            >
+          </li>
+          <li>
+            <a style="cursor: pointer" (click)="onEditRecipe()">Edit Recipe</a>
+          </li>
+          <li><a style="cursor: pointer">Delete Recipe</a></li>
         </ul>
       </div>
     </div>
   </div>
   <div class="row" style="text-align: center">
-    <div class="col-xs-12">{{ activeRecipe.description }}</div>
+    <div class="col-xs-12">{{ selectedRecipe.description }}</div>
   </div>
   <div class="row" style="text-align: center">
-    <div class="col-xs-12">Ingredients</div>
+    <div class="col-xs-12">
+      <ul class="list-group">
+        <li
+          class="list-group-item recipeIngredient"
+          *ngFor="let ingredient of selectedRecipe.ingredients"
+        >
+          {{ ingredient.name }} - {{ ingredient.amount }}
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
