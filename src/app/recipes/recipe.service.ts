@@ -47,6 +47,10 @@ export class RecipeService implements OnInit {
       });
   }
 
+  newRecipe(recipe: Recipe) {
+    return this.db.list('recipes').push(recipe);
+  }
+
   ngOnInit() {
     // this.httpClient.get(
     //   'https://recipeproject-b169c-default-rtdb.firebaseio.com/'
